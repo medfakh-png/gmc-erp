@@ -17,3 +17,6 @@ __pycache__/
 Thumbs.db
 desktop.ini
 .DS_Store
+
+# Base SQLite locale : régénérable par db/migrate.py (voir CLAUDE.md), jamais dans le dépôt
+db/gmc.db
