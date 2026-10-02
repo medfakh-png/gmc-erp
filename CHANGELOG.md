@@ -3,6 +3,83 @@
 Toutes les dates sont celles des sessions de travail, pas nécessairement
 celles de validation par l'utilisateur.
 
+## Phase 5.6 — Analyse v10 (barres 12 m / 6 m), décisions L et C, base commune GitHub (02/10/2026)
+
+Documentation seulement : aucun code, aucune migration, aucun test
+nouveau, base inchangée. 293 tests réussis, inchangés.
+
+### Ajouté
+
+- **Base commune** : dépôt GitHub privé `medfakh-png/gmc-erp` et copie
+  de travail `C:\Users\medfa\GMC-ERP`. `db/gmc.db` retirée du suivi Git
+  (fichier régénérable), `.gitignore` ajouté.
+- `docs/ANALYSE_PHASE_5_6_v10.md` (version 10.4) : analyse ciblée de la
+  règle « 1 barre de 12 m = 2 barres de 6 m », validée (LG1 à LG9,
+  Q-COUPE, V10-1 à V10-8).
+- `docs/REVUE_PHASE_5_6_L_C.md` : revue détaillée des 22 lectures L et
+  des 14 propositions C, telle qu'elle était avant les décisions
+  (document historique).
+- `docs/DECISIONS_PHASE_5_6_2026-10-02.md` : registre de toutes les
+  décisions prises par Mohamed le 02/10/2026.
+- `docs/BUSINESS_RULES.md` :
+  - §23 : décisions O1 à O9, X1 à X9, Y1 à Y6, CT1 à CT21, P-MULT,
+    P-BST, P-ART, P-RET, P-KG-TR (analyses v5 à v9), jusque-là
+    consignées seulement dans les analyses ;
+  - §24 : règle définitive des barres de 12 m et de 6 m, avec le texte
+    validé mot pour mot, le modèle retenu, l'exemple chiffré et les
+    quinze tests obligatoires ;
+  - §25 : Y6-L, Q-ANNUL, lectures L-a à L-v, propositions C1 à C14 ;
+  - §26 : registre des règles remplacées ;
+  - §27 : les 8 points encore ouverts de la Phase 5.6.
+- Relecture indépendante de la mise à jour contre ses sources : 2 écarts
+  de sens et une dizaine d'écarts de formulation, corrigés avant
+  l'enregistrement.
+
+### Modifié
+
+- `docs/BUSINESS_RULES.md` §19 à §22 : notes « Mise à jour » ou
+  « REMPLACÉ » posées à la place des règles concernées, sans effacer
+  l'ancien texte : K2 (remplacée par LG8), D1 point 3, D5 (O4 tranché),
+  N3 et K20 (% GALVA saisi sur la ligne), N4 et K19 (GPP = réglage
+  global), N5 (transport en KG), N6 et K3 (O1), N14 et K8/K16 (CT1),
+  K5 (O3, O5, L-t), K6 et K18 (CT20), K10 (Y5), K14, K21 (Y6 ; transport
+  d'une ligne ajoutée : point ouvert), transport (C3, P-KG-TR) ; notes
+  aussi aux §8 (transformations), §11 (articles) et §15 (vente en KG).
+- `PROJECT_STATUS.md`, `CURRENT_SESSION.md`, `CLAUDE.md` : état au
+  02/10/2026, base commune, ordre des travaux validé, écarts connus.
+
+### Constaté (audit en lecture seule, non corrigé)
+
+- Le code de la Phase 5.5 n'applique pas la règle 12 m / 6 m : une barre
+  de 12 m est invisible pour une commande de 6 m ; la base accepte un lot
+  de 6 m sur une ligne de 12 m ; aucun test ne couvre la règle.
+- `docs/DATABASE.md` cite une fonction `cout_sortie()` qui n'existe pas
+  sous ce nom (`cout_sortie_minor()`, `cout_sortie_detail()`,
+  `cout_sortie_total_minor()`).
+- Les documents des Phases 1 à 3 ne sont pas dans le dépôt.
+
+### Non fait (volontairement)
+
+- Aucune migration pour la règle 12 m / 6 m (elle sera dédiée ;
+  colonnes ajoutées, aucune table reconstruite, aucune donnée supprimée).
+- Rien pour V10-8 tant que la Phase 5.6 n'est pas validée dans son
+  ensemble.
+
+## Phase 5.6 — Analyses v5 à v9 (du 30/09 au 02/10/2026)
+
+Documentation seulement : aucun code, aucune migration, base inchangée.
+Entrée ajoutée après coup, le 02/10/2026.
+
+- `docs/ANALYSE_PHASE_5_6_v6.md` à `docs/ANALYSE_PHASE_5_6_v9.md` :
+  analyses consolidées successives. La v5 n'existe que comme fichier
+  remis en conversation ; ses passages utiles sont cités dans la v9.
+- Décisions intégrées : O1 à O9, X1 à X9, Y1 à Y5 (30/09/2026) ; CT1 à
+  CT21 et Y1 bis (01/10/2026) ; Y6, P-MULT, P-BST, P-ART, P-RET, P-KG-TR
+  (02/10/2026).
+- La v9 propose une migration 0021 (non créée), 210 cas de test (non
+  écrits) et un plan de développement ; elle tient un registre des
+  décisions remplacées (H1 à H40).
+
 ## Phase 5.6 — Réponses K1 à K22 intégrées, analyse version 4 (30/09/2026)
 
 Documentation seulement : aucun code, aucune migration, base inchangée.

@@ -15,10 +15,83 @@ dernière session :
 | 5.3 | Backend — Repositories + erreurs métier + audit | ✅ Terminée et validée |
 | 5.4 | Backend — Numérotation documentaire | ✅ Terminée et validée |
 | 5.5 | Backend — Stock Service | ✅ Terminée et validée (30/09/2026) |
-| 5.6 | Backend — Affaires (clients, devis, réservations, commande, affectations, suppléments, réaffectations, situation) — périmètre validé | 🔎 Analyse technique v4 (`docs/ANALYSE_PHASE_5_6.md`) — D1 à D6, N1 à N15, K1 à K22 **validés** ; **en attente de validation finale** : O1 à O9 (O6 devenue CT7), 10 confirmations C, choix techniques CT1 à CT15 non validés (aucun code) |
+| 5.6 | Backend — Affaires (clients, devis, réservations, commande, affectations, suppléments, réaffectations, situation) — périmètre validé | 🔎 **Analyse seulement, aucun code.** Analyses v9 (`docs/ANALYSE_PHASE_5_6_v9.md`) et v10 (`docs/ANALYSE_PHASE_5_6_v10.md`, barres 12 m / 6 m, **validée** le 02/10/2026). Décisions validées et reportées dans `docs/BUSINESS_RULES.md` §19 à §26. **8 points encore ouverts** (§27) ; **validation d'ensemble de la 5.6 en attente** |
 | 5.7-5.11 | Services métier (achats, transformations, livraisons, coûts/marge), tests d'intégration | ⏳ Pas commencées |
 | 6 | Frontend | ⏳ Pas commencée |
 | 7-16 | Stock, achats, ventes, transformations, MACF, dashboard, import/export, sécurité, tests, packaging | ⏳ Pas commencées |
+
+## Base commune du projet (depuis le 02/10/2026)
+
+Le projet a maintenant une source unique, partagée entre Mohamed, Claude
+et ChatGPT :
+
+- **Dépôt GitHub privé** : `medfakh-png/gmc-erp`, branche `main`.
+- **Copie de travail sur le PC de Mohamed** : `C:\Users\medfa\GMC-ERP`
+  (même contenu que le dépôt, plus une archive de sauvegarde
+  `gmc-erp_sauvegarde_2026-10-02.zip`, volontairement hors dépôt).
+- La base `db/gmc.db` n'est **pas** dans le dépôt (fichier régénérable
+  par `python3 db/migrate.py`).
+
+Historique du dépôt : `576a425` (sauvegarde initiale, état Phase 5.5
+validée + analyse 5.6 v9) ; `9671f70` (`db/gmc.db` retirée du suivi) ;
+puis le dépôt documentaire du 02/10/2026 décrit ci-dessous.
+
+## Phase 5.6 — état au 02/10/2026
+
+**Rien n'est codé pour la 5.6.** Le code, les migrations et la base sont
+exactement ceux de la Phase 5.5 validée : 20 migrations, 47 tables,
+4 vues, 94 triggers, 293 tests réussis.
+
+Ce qui est validé (détail dans `docs/BUSINESS_RULES.md`) :
+
+- §19 à §22 : transport, D1 à D6, N1 à N15, K1 à K22 (30/09/2026).
+- §23 : O1 à O9, X1 à X9, Y1 à Y6, CT1 à CT21, P-MULT, P-BST, P-ART,
+  P-RET, P-KG-TR (analyses v5 à v9, du 30/09 au 02/10/2026).
+- §24 : **règle définitive des barres de 12 m et de 6 m** (LG1 à LG9,
+  V10-1 à V10-8). 1 barre de 12 m = 2 barres de 6 m à finition identique,
+  sans transformation ; sens inverse interdit ; reliquat rattaché au lot
+  source ; coût proportionnel à la longueur.
+- §25 : les 22 lectures L-a à L-v et les 14 propositions C1 à C14,
+  tranchées une par une le 02/10/2026 (deux sous-questions reportées :
+  L-f bis et C4 bis, §27) ; Y6-L ; Q-ANNUL.
+- §26 : registre des règles remplacées (dont K2, remplacée par LG8).
+
+**Écart connu entre la règle et le code (FACT, audit du 02/10/2026).** Le
+code de la Phase 5.5 ne connaît qu'« 1 pièce de 12 m » : une barre de
+12 m est invisible pour une commande de 6 m ; on ne peut pas en prendre
+6 m sans prendre la barre entière ; la base accepte un lot de 6 m sur une
+ligne de 12 m ; aucun test ne couvre la règle (cinq cas réels exécutés,
+analyse v10 §B). La correction est décrite
+dans l'analyse v10 et n'est pas commencée.
+
+**Ordre des travaux validé (V10-7)**, chaque étape sur accord explicite :
+
+1. Documentation métier — **fait le 02/10/2026**.
+2. Tests de la règle 12 m / 6 m, écrits avant le code lorsque cela est
+   possible.
+3. Migration corrective dédiée, additive pour les données (colonnes
+   ajoutées, aucune table reconstruite, aucune donnée supprimée ;
+   vues et triggers remplacés ou ajoutés).
+4. Code : disponibilité, compatibilité lot / ligne, affectation,
+   valorisation, reconstruction, contraintes.
+5. Tests complets : nouveaux, existants, reconstruction, intégrité,
+   `--fresh`, non-régression.
+6. Rapport, puis validation.
+
+V10-8 (avertissement quand un reliquat existe dans un autre lot) reste
+dans l'analyse : aucun code, aucune migration, aucun test tant que
+l'ensemble de la Phase 5.6 n'est pas validé.
+
+**Points ouverts de la 5.6** : `docs/BUSINESS_RULES.md` §27 (8 points).
+
+**Écarts documentaires connus (audit du 02/10/2026), non corrigés** :
+
+- les documents des Phases 1 à 3 ne sont pas dans le dépôt ;
+- `docs/DATABASE.md` cite une fonction `cout_sortie()` ; le code contient
+  `cout_sortie_minor()`, `cout_sortie_detail()` et
+  `cout_sortie_total_minor()` ;
+- l'analyse v5 n'existe que comme fichier remis en conversation ; ses
+  passages utiles sont cités dans la v9.
 
 ## Règle de méthode (depuis la Phase 5.5, imposée par l'utilisateur)
 
@@ -268,6 +341,13 @@ des chutes a été **tranché définitivement en Phase 4.1** (voir
 `docs/STOCK_RULES.md` §2.4-2.5) ; les points d'architecture backend
 (M.1-M.5) ont été tranchés en Phase 5.1 (voir plus haut).
 
+Phase 5.6 — points restant ouverts (02/10/2026) : voir
+`docs/BUSINESS_RULES.md` §27. En résumé : liste des 8 causes
+d'annulation ; SUPERADMIN indisponible ; Q-BCT et Q-TRF ; BST préparé
+d'une commande annulée ; bon de commande partiellement réceptionné à
+l'annulation (5.7) ; format du code article ; transport estimé d'une
+ligne ajoutée par avenant ; validation d'ensemble.
+
 Phase 5.5 — points restant ouverts :
 - Aucun point bloquant.
 - Limite acceptée (décision « Proposition A ») : un prix plus fin que le
@@ -366,6 +446,19 @@ Phase 5.5 — points restant ouverts :
     entière.
 
 ## Prochaine étape proposée
+
+**Au 02/10/2026.** La documentation métier est à jour. Deux suites
+possibles, au choix de Mohamed, sur accord explicite :
+
+- répondre aux points ouverts de la 5.6 (`docs/BUSINESS_RULES.md` §27),
+  puis donner la validation d'ensemble de la Phase 5.6 ;
+- ou lancer l'étape 2 de l'ordre validé : écrire les tests de la règle
+  12 m / 6 m (sans migration ni code tant que ce n'est pas demandé).
+
+Aucun code, aucune migration, aucun test nouveau sans cet accord. Ne pas
+commencer la 5.7.
+
+*Historique (situation au 30/09/2026, conservée telle quelle) :*
 
 Phase 5.5 validée. Phase 5.6 : analyse livrée (voir `CURRENT_SESSION.md`),
 en attente de ta validation et de tes réponses aux points à valider —

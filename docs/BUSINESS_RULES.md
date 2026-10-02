@@ -4,7 +4,13 @@ Ce document est la référence unique des règles métier validées. En cas de
 divergence apparente avec un autre document ou une ancienne conversation,
 **ce fichier fait foi** (il est mis à jour à chaque validation).
 
-Dernière mise à jour : Phase 5.6 (analyse) — réponses K1 à K22 (§22),
+Dernière mise à jour : Phase 5.6 (analyse, aucun code) — le 02/10/2026 :
+décisions O, X, Y, CT et P des analyses v5 à v9 (§23), règle définitive
+des barres de 12 m et de 6 m (§24), décisions sur les lectures L-a à L-v
+et les propositions C1 à C14 (§25), registre des règles remplacées (§26),
+points encore ouverts (§27). Les règles des §19 à §22 que ces décisions
+remplacent portent une note « Mise à jour » à leur place.
+Précédente : Phase 5.6 (analyse) — réponses K1 à K22 (§22),
 décisions N1 à N15 (§21),
 correction de D1 (§20), décisions D1 à D6 (§20), précisions sur le
 transport (§19), le 30/09/2026.
@@ -123,6 +129,16 @@ utilisable devient un **nouveau lot** (lié au lot d'origine par filiation,
 Reçu + chute ne dépassent jamais ce qui a été envoyé. Le transformateur est
 un emplacement physique réel du stock GMC — voir §13 (Phase 5.5).
 
+**Mise à jour (Phase 5.6, 02/10/2026).** Pour la préparation des bons de
+sortie transformation, deux transformations seulement sont retenues :
+GALVANISATION et GPP (P-RET, §23). Le sort du « débit » cité dans le
+titre ci-dessus, que la base connaît encore, n'est **pas tranché** : il
+relève de Q-TRF et de la Phase 5.8 (§27). Par ailleurs, une barre de 12 m
+transformée peut revenir en 2 pièces de 6 m (CT18, §23) : le contrôle
+« reçu + chute ≤ envoyé » devra alors se compter en unités de 6 m et
+non en nombre de pièces (proposition de l'analyse v10, §M) — à traiter
+en 5.8.
+
 ## 9. Chutes — DÉFINITIVE (Phase 4.1 §3)
 
 Les chutes sont enregistrées et tracées séparément du stock normal, **jamais
@@ -154,6 +170,11 @@ même facture de fin de mois.
 - Un article existant **ne peut pas être modifié normalement** : toute
   modification nécessite une **dérogation spéciale de Mohamed**, est
   auditée et conserve la traçabilité de l'ancien état.
+- **Mise à jour (Phase 5.6, 02/10/2026).** Précisé par P-ART (§23) :
+  modification à impact métier = nouvelle version historisée ; correction
+  administrative = auditée, sans nouvelle version. Tout utilisateur peut
+  **demander** une création ; seul le SUPERADMIN crée (L-o, §25) ; seul
+  le SUPERADMIN modifie une désignation (L-p, §25).
 - Chaque article possède une désignation normalisée et un identifiant
   interne stable (UUID technique). Le **format définitif du code article
   n'est pas encore décidé** — aucune convention ne doit être inventée.
@@ -244,6 +265,8 @@ garantie.
   commercialement exprimées en **tonnes** (lorsque l'article est vendu au
   poids). Le **CMP / coût de revient** suit l'unité de valorisation de
   l'article (§16) : il n'est pas imposé en kg.
+- **Mise à jour (Phase 5.6).** Le **KG** est aussi une unité de vente au
+  poids, comme la tonne (Y4, CT20, C2 : §23, §25).
 - Exemple : 5 DT HT/kg = 5 000 DT HT/tonne. Vente de 2 500 kg : quantité
   physique 2 500 kg, quantité commerciale 2,5 tonnes, prix commercial
   5 000 DT/tonne, CA HT 12 500 DT.
@@ -389,12 +412,18 @@ mention « DT/t » ci-dessus se lit donc **EUR/t** ; en autre unité, le
 montant total est saisi en EUR. L'arrondi « au millime » ci-dessus vaut
 pour le TND ; un montant en EUR s'arrondit **au centime** (K13, §22).
 
+**Mise à jour (02/10/2026).** Ligne vendue en **KG** : transport = KG ÷
+1 000 × EUR/t (P-KG-TR, §23). Le transport hors poids et le poids de la
+ligne sont saisis sur la ligne du devis (Y2, §23). Après la confirmation
+de la commande, le transport estimé n'est **plus recalculé**, même en cas
+d'avenant ; pas de transport estimé sur un supplément (C3, §25).
+
 ## 20. Affaires — décisions D1 à D6 VALIDÉES (Phase 5.6, 30/09/2026)
 
 Source : message « Phase 5.6 — validation finale des décisions D1 à D6 ».
 Détail et mise en œuvre proposée : `docs/ANALYSE_PHASE_5_6.md`.
 Décisions complémentaires N1 à N15 : §21. Réponses définitives K1 à K22 :
-§22. Points encore ouverts : O1 à O9 de `docs/ANALYSE_PHASE_5_6.md` §5.2.
+§22. Les points O1 à O9, ouverts le 30/09, sont **tranchés** : §23.
 
 **D1 — Compatibilité lot ↔ ligne de commande.** Un lot peut servir une
 ligne si les trois conditions sont réunies :
@@ -406,6 +435,12 @@ ligne si les trois conditions sont réunies :
 
 Toute autre compatibilité est refusée pour le moment ; aucune autre règle
 ne doit être inventée. LAC = NOIR dans le logiciel.
+
+**Mise à jour (02/10/2026).** Le point 3 est précisé par la règle
+définitive du §24 : la seule équivalence de longueur est **12 m → 2 × 6 m**,
+à finition identique, sans transformation ; le sens inverse (6 m → 12 m)
+est interdit ; aucune autre conversion (12 → 4, 12 → 3, 6 → 3…) n'est
+validée pour le moment : chacune demanderait une décision métier séparée.
 
 **Correction validée (message N1 à N15).** D1 s'applique lorsque l'état
 **réel** du lot correspond à la ligne. Sinon, une transformation est
@@ -435,7 +470,9 @@ la transformation prévue le permet réellement.
   n'invente ni ne déduit aucune formule : l'article doit d'abord être créé
   ou complété avec sa masse validée.
 - **Vente en PIÈCE, ML, M² ou autre unité** : poids commercial saisi
-  manuellement.
+  manuellement. **Mise à jour (CT20, §23)** : la vente en KG est une
+  vente au poids, à poids calculé comme en TONNE ; un poids déclaré à la
+  main n'est permis qu'en NOIR/LAC hors vente au poids.
 - **GALVA** : poids commercial = poids de base calculé + % GALVA
   applicable. Formule précisée au §21 (N3). **GPP** : majoration fixe de
   2 % (§21, N4).
@@ -490,7 +527,10 @@ précises : points N6 à N9).
   qui s'y trouve). Le lot transformé n'est commercialement compatible
   qu'après réception. Affecter la production attendue d'une
   transformation en cours (les 40 pièces de l'exemple, catégorie F) :
-  point **O4**, non tranché.
+  point **O4**, non tranché le 30/09.
+- **Mise à jour (02/10/2026).** O4 est **tranché** : affectation
+  commerciale possible chez le transformateur, vente seulement après la
+  réception (O4, X3, §23 ; pièce en trop d'une transformation : L-u, §25).
 
 **D6 — Compte SUPERADMIN.** Mohamed est le compte **SUPERADMIN**. Les
 droits réservés (« Mohamed seul » dans les règles de la Phase 5.6) sont
@@ -529,9 +569,13 @@ Précisions définitives K1 à K22 : §22.
   - Poids GALVA = poids brut × (1 + % GALVA ÷ 100).
   - Exemple validé : IPE100 6 m brut = 8,1 kg/ml × 6 m = 48,6 kg par
     barre ; GALVA 6 % = 8,1 × 6 × 1,06 = 51,516 kg par barre.
+  - **Mise à jour (02/10/2026).** La formule ne change pas. Le % est
+    **saisi sur chaque ligne GALVA** : celui de la fiche article est
+    proposé, l'utilisateur le garde ou le change (L-h, L-h bis, §25).
 - **N4 — GPP.** Majoration **fixe de 2 %**, intégrée au calcul
   conformément à la règle métier déjà discutée ; ne pas la remplacer par
-  0 %.
+  0 %. **Mise à jour (01/10/2026)** : le 2 % est un réglage unique,
+  modifiable par le SUPERADMIN seul, avec date d'effet (CT4, §23).
 
 ### Devises et taux
 
@@ -545,13 +589,16 @@ Précisions définitives K1 à K22 : §22.
     le devis, puis figé après validation de l'offre.
   - Transport : vente en TONNE → EUR/t × poids vendu en tonnes ; vente en
     PIÈCE, ML, M² ou autre → montant **total** du transport saisi
-    directement en EUR ; aucune conversion cachée en tonnes.
+    directement en EUR ; aucune conversion cachée en tonnes. **Mise à
+    jour (P-KG-TR, §23)** : vente en KG → KG ÷ 1 000 × EUR/t.
 
 ### Commande confirmée (avenants)
 
 - **N6.** La quantité originale est conservée. Les avenants peuvent
   produire une quantité en vigueur. Ce qui dépasse la quantité **originale** reste un
-  **supplément** et suit la règle CMP.
+  **supplément** et suit la règle CMP. **Mise à jour (O1, §23)** : une
+  quantité ajoutée par avenant est une quantité **normale** ; le
+  supplément est ce qui dépasse la quantité **en vigueur**.
 - **N7.** Une commande peut être diminuée.
   - Les marchandises déjà réceptionnées et validées qui ne servent plus ne
     sont pas supprimées : elles deviennent du stock GMC disponible selon
@@ -581,7 +628,10 @@ Précisions définitives K1 à K22 : §22.
   d'autres utilisateurs autorisés. « Ne pas imposer dès maintenant le rôle
   COMMERCIAL. » (Aucune délégation actuellement : K8, §22.)
 - **N14.** Il existe **actuellement** un seul SUPERADMIN : Mohamed. Il est identifié par
-  son compte et son rôle système, jamais par le nom affiché.
+  son compte et son rôle système, jamais par le nom affiché. **Mise à
+  jour (CT1, §23 ; L-f, §25)** : exactement un seul SUPERADMIN, imposé
+  par l'application et par la base ; il ne peut être ni désactivé ni
+  changé de rôle.
 
 ### Stock
 
@@ -606,6 +656,10 @@ K22 ». Ces décisions **remplacent** toute interprétation précédente
 contraire. Décisions encore ouvertes (O1 à O9 ; O6 déplacée en choix
 technique CT7), confirmations C et choix techniques CT1 à CT15 (aucun
 validé) : `docs/ANALYSE_PHASE_5_6.md` §5.
+
+**Mise à jour (02/10/2026).** Cette liste de points ouverts date du
+30/09. Depuis : O1 à O9 tranchés, CT1 à CT21 validés (§23), propositions
+C tranchées (§25). Ce qui reste ouvert est au §27.
 
 ### Transformation et compatibilité
 
@@ -643,6 +697,12 @@ validé) : `docs/ANALYSE_PHASE_5_6.md` §5.
     son nouveau poids, sa nouvelle finition/état et sa traçabilité vers
     le lot d'origine. Un lot brut de 12 m n'est **jamais** considéré comme
     directement disponible en 6 m.
+  - **REMPLACÉ le 02/10/2026 (LG8, §24)** — la dernière phrase ci-dessus
+    n'est plus vraie à finition identique. Nouvelle règle : « Un lot 12 m
+    peut servir une ligne 6 m à finition compatible identique selon
+    l'équivalence 1 × 12 m = 2 × 6 m. Cette compatibilité n'est pas une
+    transformation industrielle. » La phrase reste vraie quand la
+    finition change (NOIR 12 m → GALVA 6 m passe par une transformation).
 - **N15 (reformulé).** Transformation et changement d'état : le nouveau
   lot a ses propres caractéristiques, quantité, longueur, poids,
   finition, localisation et traçabilité ; le lot d'origine reste
@@ -661,8 +721,9 @@ validé) : `docs/ANALYSE_PHASE_5_6.md` §5.
   - Exemple : 100 initiales + 20 par avenant = 120 en vigueur. Le système
     ne transforme **jamais** rétroactivement les 100 en 120.
   - Valorisation des quantités ajoutées par avenant (supplément au CMP ou
-    quantité normale) : **non tranchée**, point O1 de
-    `docs/ANALYSE_PHASE_5_6.md`.
+    quantité normale) : **non tranchée** le 30/09, point O1 de
+    `docs/ANALYSE_PHASE_5_6.md`. **Tranchée depuis (O1, §23)** : quantité
+    normale.
 - **K9 — Avenants.**
   - Toute modification après validation de la commande est un avenant,
     réservé au SUPERADMIN.
@@ -675,7 +736,9 @@ validé) : `docs/ANALYSE_PHASE_5_6.md` §5.
     commande, et ne modifie jamais automatiquement le prix d'une ligne
     existante.
   - Nouvelle négociation → nouveau prix historisé, avec date d'effet ;
-    l'ancienne condition est conservée.
+    l'ancienne condition est conservée. **REMPLACÉ par Y5 (§23)** : pas
+    de renégociation du prix de vente après la confirmation de la
+    commande ; elle se fait avant, au stade du devis.
   - Regroupement possible à la facturation, sans perte d'historique.
 - **K13 — Diminution.** Autorisée, jamais sous la quantité déjà livrée.
   Une marchandise devenue inutile reste du stock GMC disponible, selon
@@ -692,6 +755,11 @@ validé) : `docs/ANALYSE_PHASE_5_6.md` §5.
     matière, coût de transformation, transport, taux de change du devis
     ou de la commande selon son contexte, autres données commerciales).
   - L'ancienne commande reste historiquement intacte.
+  - **Mise à jour (02/10/2026).** Le taux est toujours celui du devis
+    validé et gelé (Y6, §23 ; Y6-L, §25). Pour le **transport estimé**
+    d'une ligne ajoutée par avenant, K21 (« recalculée entièrement, …
+    transport ») et C3 (« plus recalculé, même en cas d'avenant », §25)
+    ne disent pas la même chose : **point ouvert**, §27.
 
 ### Devis, devises et taux
 
@@ -715,12 +783,14 @@ validé) : `docs/ANALYSE_PHASE_5_6.md` §5.
     taux utilisé ; l'utilisateur commercial ne peut plus le modifier ;
     aucune modification par un utilisateur opérationnel ; seul le
     SUPERADMIN peut intervenir, selon les règles de modification
-    stratégique déjà validées.
+    stratégique déjà validées. **Mise à jour (L-t, §25)** : aucune
+    modification exceptionnelle du taux n'est développée en 5.6.
   - Pas de système où le commercial doit sélectionner un taux prédéfini
     existant.
   - Ce que recouvre « utilisateur commercial autorisé » (rôle ou
     permission) et le moment exact de la « validation de l'offre » :
-    points O5 et O3 de `docs/ANALYSE_PHASE_5_6.md`.
+    points O5 et O3 de `docs/ANALYSE_PHASE_5_6.md`, **tranchés** depuis
+    (§23). Convention du taux : TND pour 1 EUR (Y3, CT5, §23).
 - **K22 — Devises imposées** selon le type de prix : vente EUR, achat
   matière estimatif TND, coût estimatif de transformation TND, transport
   estimatif EUR. Elles peuvent être préremplies automatiquement et ne
@@ -736,7 +806,8 @@ validé) : `docs/ANALYSE_PHASE_5_6.md` §5.
 
 - **K6 — Autres unités.** Pour une vente en PIÈCE, ML, M² ou autre unité
   autorisée, le poids peut être déterminé manuellement selon les règles
-  validées.
+  validées. **Mise à jour (CT20, §23)** : poids déclaré seulement en
+  NOIR/LAC hors vente au poids ; le KG est une vente au poids.
 - **K7 — Référentiel article.**
   - Les masses sont vérifiées **progressivement** par l'utilisation réelle.
     Le système permet d'améliorer progressivement le référentiel jusqu'à
@@ -752,17 +823,29 @@ validé) : `docs/ANALYSE_PHASE_5_6.md` §5.
     manuelle arbitraire.
   - Si la méthode manque : le système demande de compléter et valider le
     référentiel.
+  - **Mise à jour (Y4, CT20, §23)** : même règle pour une vente en KG.
 - **K19 — GPP.**
   - GPP est une finition distincte de GALVA : poids GPP = poids brut ×
     1,02 (fixe actuellement).
   - Jamais cumulé avec le % GALVA : NOIR/LAC → GPP = +2 % ; NOIR/LAC →
     GALVA = % GALVA.
+  - **Mise à jour (CT4, §23)** : le 2 % est un réglage global historisé,
+    pas une constante du code ; même valeur aujourd'hui.
 - **K20 — % GALVA.**
   - 0 % = état brut de la matière.
   - Trois cas distincts : % défini, 0 % défini, % non renseigné. Un % non
     renseigné n'est **jamais** transformé automatiquement en 0 %.
   - Vente GALVA sans % renseigné et validé → le système demande de
     compléter le référentiel.
+  - **MODIFIÉ le 02/10/2026 (L-h, L-h bis, §25)** : le % de la fiche
+    article est **proposé** sur la ligne ; l'utilisateur le garde ou le
+    change ; un écart est signalé, jamais bloqué. Sur une ligne GALVA, le
+    % est obligatoire et strictement supérieur à 0 (0 % reste l'état
+    brut, donc interdit pour du GALVA). Un % non renseigné n'est toujours
+    jamais transformé en 0 %. La puce précédente (« sans % renseigné et
+    validé → compléter le référentiel ») devient : sans % sur la ligne,
+    la ligne GALVA ne peut pas être validée (L-h bis) ; la validation
+    préalable du % par le SUPERADMIN n'est plus exigée (§26).
 
 ### Stock et droits
 
@@ -777,7 +860,8 @@ validé) : `docs/ANALYSE_PHASE_5_6.md` §5.
     réel et les mouvements incompatibles avec les quantités affectées.
   - Il ne choisit jamais automatiquement les lots.
 - **K8, K16 — SUPERADMIN.**
-  - Actuellement un seul SUPERADMIN : Mohamed.
+  - Actuellement un seul SUPERADMIN : Mohamed. **Mise à jour (CT1, §23)** :
+    exactement un seul, imposé par l'application et par la base.
   - Droits déterminés par le compte utilisateur et le rôle/permission, et
     **non simplement** par le nom affiché.
   - L'architecture doit permettre qu'à l'avenir Mohamed puisse
@@ -802,7 +886,356 @@ validé) : `docs/ANALYSE_PHASE_5_6.md` §5.
   correspondants. » Les points O1 à O9 de `docs/ANALYSE_PHASE_5_6.md`
   §5.2 ne créent pas de nouvelle règle : ce sont des questions
   d'application des règles ci-dessus, laissées ouvertes jusqu'à ta
-  réponse.
+  réponse. **Réponses reçues** : §23.
+
+## 23. Affaires — décisions O, X, Y, CT et P (Phase 5.6, du 30/09 au 02/10/2026)
+
+Ces décisions ont été prises pendant les analyses v5 à v9. Elles étaient
+consignées dans les analyses et **reportées ici le 02/10/2026**. Le détail
+(tes mots, les exemples, les cas de test) reste dans
+`docs/ANALYSE_PHASE_5_6_v9.md` : §0, §0 bis, §0 ter, §16, §18, §21, §26.
+Dans cette section, « V » désigne la quantité **en vigueur** d'une ligne
+(quantité originale + avenants).
+
+### O1 à O9 — tranchés
+
+| Repère | Règle |
+|---|---|
+| O1 | Une quantité ajoutée par avenant est une quantité **normale**, identifiable. Le supplément est ce qui dépasse V. |
+| O2 | Un avenant utilise le taux de change de la préparation du devis initial ; aucun nouveau taux. Confirmé par Y6. |
+| O3 | « Validation de l'offre » = devis à l'état CONFIRMÉ : taux et conditions figés ; le SUPERADMIN seul peut intervenir ensuite. |
+| O4 | Affectation commerciale possible sur une marchandise chez le transformateur ; vendable seulement après la réception. Mise en œuvre : X3. |
+| O5 | Comptes et accès définis par le SUPERADMIN, par utilisateur, par module et par permission si nécessaire. Le rôle COMMERCIAL ne donne pas automatiquement tous les droits commerciaux. |
+| O6 | Supprimé : devenu le choix technique CT7. |
+| O7 | Vente hors poids (ni KG ni TONNE) : poids déclaré obligatoire, saisi au devis, final, jamais majoré. Il sert au poids final, au prix de revient estimatif et, plus tard, à la répartition du transport réel. Poids déclaré seulement en NOIR/LAC (CT20). |
+| O8 | Cas A : lot existant, coût réel, aucun achat (affectation en 5.6). Cas B : nouvelle commande fournisseur, nouveau lot, nouveau coût ; le prix initial n'est jamais écrasé ; le prix de vente n'est pas modifié. La partie fournisseur relève de la 5.7. |
+| O9 | Emplacements : GMC et les transformateurs ; d'autres emplacements seulement au besoin réel. |
+
+### X1 à X9
+
+| Repère | Règle |
+|---|---|
+| X1 | **Remplacé par Y5** (plus de nouveau prix après confirmation). |
+| X2 | Transport saisi en EUR/t. Vente en tonne : EUR/t × tonnes. Autre unité : aucun poids implicite, montant total en EUR saisi à la main. Précisé par Y2 et P-KG-TR. |
+| X3 | Affectation en 5.6 sur un besoin et une marchandise identifiés, même chez le transformateur. Aucun lot transformé en 5.6 ; rattachement au lot résultant en 5.8. Jamais un mouvement. |
+| X4 | Opérations stratégiques de la 5.6 réservées au SUPERADMIN. Délégation future prévue, aucune supplémentaire active. Droits liés au compte et aux permissions, pas au nom. |
+| X5 | Coût en EUR = montant en TND converti au taux de l'affaire. Précisé par Y3 : le taux se saisit en TND pour 1 EUR, donc coût EUR = montant TND ÷ taux, calcul exact. |
+| X6 | Clôture avec reliquat en une opération contrôlée : demande, calcul, affichage, confirmation, libération, motif. Le reliquat n'est jamais converti en livraison. Précisé par CT19. |
+| X7 | Taux saisi, historisé, figé pour l'affaire, utilisé pour les avenants ; jamais remplacé à chaque avenant. |
+| X8 | % GALVA obligatoire dans la référence article (décision du 30/09). La partie « GALVA hors tonne » est sans objet depuis Y4. Depuis le 02/10, le % est saisi sur la ligne et celui de la fiche est seulement proposé (L-h, §25) ; si la fiche est vide ou à 0 %, rien n'est proposé et l'utilisateur saisit un % supérieur à 0. |
+| X9 | Un supplément reste un supplément : jamais requalifié, ni automatiquement ni rétroactivement. Maintenu par CT17. Une réaffectation vers une autre affaire crée une **nouvelle** affectation, typée à la destination (C8 bis, §25) : ce n'est pas une requalification de l'affectation d'origine. |
+
+### Y1 à Y6
+
+| Repère | Règle |
+|---|---|
+| Y1 | Un lot brut encore chez GMC peut être **réservé** pour une ligne d'un autre état dès la commande confirmée. La transformation prévue est déclarée à la réservation. |
+| Y1 bis (a) | La réservation d'un lot brut **bloque réellement** le disponible : 100 barres, 25 réservées → disponible 75, stock physique toujours 100. Aucun mouvement. |
+| Y1 bis (b) | Au bon de sortie transformation (BST), le système compare le résultat prévu à la réservation : identique → conversion ; différent → BST refusé. Aucun choix automatique. **Modifié par L-s (§25)** : un BST peut exécuter une partie seulement de la réservation. |
+| Y1 bis (c) | « Confirmation client » = commande client confirmée. |
+| Y1 bis (d) | Seul le SUPERADMIN peut réserver. |
+| Y1 bis (mécanisme) | La réservation reste dans l'historique ; une nouvelle affectation liée est créée au BST ; le lien réservation → affectation est traçable. |
+| Y2 | Transport prévisionnel hors poids : montant total en EUR **et** poids de la ligne saisis sur la ligne du devis. Le transport final, connu après facturation, sera réparti au poids pour la marge par article (5.9 / 5.10). |
+| Y3 | Le commercial saisit le taux en **TND pour 1 EUR** (exemple : 3,40). |
+| Y4 | La galvanisation ne concerne que des lignes vendues en **KG ou en TONNE**. Même règle pour le GPP. Le contrôle porte sur l'unité de vente de la ligne. Le KG est une vente au poids, comme la tonne. |
+| Y5 | Pas de renégociation du prix de vente après confirmation : « commande confirmée, prix de vente confirmé ». La négociation se fait avant, au stade du devis. Une **erreur** de prix après confirmation se corrige par le SUPERADMIN, avec motif et audit ; ce n'est pas une renégociation (CT10). |
+| Y6 | Tous les avenants d'une commande confirmée utilisent le taux du devis validé et gelé. Libellé confirmé le 02/10 (Y6-L, §25). |
+
+### CT1 à CT21 — choix techniques validés le 01/10/2026
+
+| Repère | Contenu retenu |
+|---|---|
+| CT1 | Exactement **un seul SUPERADMIN**, imposé par l'application et par la base ; un deuxième est refusé. |
+| CT2 | Comptes, permissions, modules et droits par compte et par module créés dès la 5.6. Droits initiaux = situation actuelle. Aucune délégation supplémentaire active ; architecture prête pour une délégation future sans refonte. Le rôle « commercial » ne donne pas automatiquement tous les droits commerciaux. Les opérations sensibles demandent une permission explicite. |
+| CT3 | Historique jamais modifié des validations des valeurs article (masse, méthode de poids, unité, sources, auteur, date, motif). La masse actuelle de la fiche est une « valeur MV à vérifier ». Une vente à poids calculé ne peut pas utiliser une masse non validée. SUPERADMIN seul. Jamais rétroactif sur un devis ou une commande confirmés. **Pour le % GALVA : modifié par L-h (§25).** |
+| CT4 | GPP = réglage unique en base, 2 % aujourd'hui, commun à tous les articles, modifiable par le SUPERADMIN seul, avec date d'effet. Les devis et commandes confirmés gardent le taux utilisé. |
+| CT5 | Taux saisi à la main en TND pour 1 EUR ; chaque saisie est une nouvelle valeur, jamais modifiée ni supprimée, avec auteur et date ; taux conservé tel que saisi, jamais arrondi ; figé à la confirmation. Modification exceptionnelle par le SUPERADMIN (décision du 01/10) : nouveau taux, motif obligatoire, audit complet, sans effet sur les avenants (Y6). **Cette fonction n'est pas développée en 5.6 (L-t, §25).** |
+| CT6 | Prix de revient calculé sur le total de la ligne ; un seul arrondi final au centime EUR ; revient unitaire affiché = total ÷ quantité. **Photo complète et figée** à la confirmation. |
+| CT7 | « Transformation prévue : OUI / NON » sur chaque ligne de devis. Si OUI, coût obligatoire (0 seulement s'il est saisi) ; si NON, aucun coût. GALVA et GPP imposent une vente en KG ou TONNE. |
+| CT8 | L'unité du coût de transformation est conservée avec le coût : TND/t, TND/kg, TND/pièce, TND/ml ou montant total de la ligne. |
+| CT9 | Coûts estimés recopiés du devis vers la commande ; saisis dans l'avenant pour un article ajouté ; jamais pré-remplis depuis un ancien achat. Prévision commerciale ≠ coût réel. |
+| CT10 | Une seule table d'avenants, jamais modifiée : ancienne et nouvelle valeur, motif, auteur, date, impact quantitatif et financier avant/après. Même mécanique pour les interventions exceptionnelles du SUPERADMIN sur une commande confirmée. Aucun avenant de prix après confirmation ; une erreur de prix se corrige par le SUPERADMIN, avec motif obligatoire et audit complet : ce n'est pas une nouvelle négociation. Ligne au poids : un avenant de quantité recalcule le poids par la méthode validée. |
+| CT11 | Aucun mouvement physique ne fait passer le stock disponible sous l'affecté ou le bloqué ; contrôle dans l'application et dans la base. |
+| CT12 | La marchandise envoyée en transformation et non réceptionnée se calcule à partir du stock physique chez les transformateurs. |
+| CT13 | Lot brut non réservé : signal « utilisable après transformation », informatif seulement. |
+| CT14 | Correction d'inventaire : référence et date du PV signé par la Direction Générale, auteur, date, audit complet ; SUPERADMIN obligatoire. |
+| CT15 | Migration de la 5.6 : tout ou rien, additive, sans suppression ni réécriture destructrice, données reprises, tests existants préservés. |
+| CT16 | Ligne ajoutée par avenant marquée AVENANT, quantité initiale 0 ; la situation montre « 0 initial + X ajouté ». |
+| CT17 | Type d'affectation fixé à la création : NORMALE tant que le cumul normal ne dépasse pas V ; au-delà, SUPPLÉMENT avec motif ; jamais requalifié. (« NORMALE » est le libellé ; le code existant dans la base reste INITIALE, cf. §1.) |
+| CT18 | Résultat attendu renseigné à l'établissement du BST. État de retour imposé : galvanisation → GALVA ; GPP → GPP. Conversion de longueur exacte (25 × 12 m → 50 × 6 m). Le résultat doit correspondre à une éventuelle réservation préalable ; il est figé dès qu'une affectation s'y rattache. Livraison interdite avant réception. |
+| CT19 | Clôture avec reliquat : statut SOLDÉE ; motif obligatoire (reliquat annulé par le client, reliquat devenu inutile, commande abandonnée, AUTRE + commentaire) ; reliquat conservé ligne par ligne. |
+| CT20 | Chaque ligne garde son poids, son unité et son origine : CALCULÉ ou DÉCLARÉ. DÉCLARÉ seulement en NOIR/LAC hors vente au poids. GALVA et GPP : poids toujours calculé. |
+| CT21 | Réservation d'un lot brut pour transformation : statuts ACTIVE / CONVERTIE / LIBÉRÉE ; libérée par l'annulation de la commande, la clôture avec reliquat, une diminution avec choix explicite, ou le SUPERADMIN avec motif. |
+
+### Décisions P du 02/10/2026 (matin)
+
+| Repère | Règle |
+|---|---|
+| P-MULT | Besoin en barres de 6 m servi par des barres de 12 m : calcul **par excès**. 49 × 6 m → 25 × 12 m → 50 × 6 m ; 49 affectées ; 1 restante, stock GMC réel, traçable, jamais attribuée automatiquement. Précisé par L-n (§25). |
+| P-BST | La **5.6 prépare** le bon de sortie transformation : lot, disponibilité, résultat attendu, comparaison avec la réservation, document. Aucun mouvement, aucun lot transformé. La **5.8 exécute** : sortie physique, mouvement, transformation, nouveau lot, réception. |
+| P-ART | Création d'article par le SUPERADMIN seul ; les utilisateurs sélectionnent un article ou demandent une création. Modification à impact métier (masse, poids, % GALVA, unité de valorisation, caractéristiques de calcul, règles techniques) = nouvelle version historisée, ancien état conservé, aucun recalcul silencieux. Correction administrative (libellé, faute de frappe) : sans nouvelle version, mais auditée (ancienne et nouvelle valeur, utilisateur, date et heure, motif si nécessaire). Une commande confirmée garde les caractéristiques de sa confirmation. |
+| P-RET | Deux transformations seulement : GALVANISATION → retour GALVA ; GPP → retour GPP. Le type choisi dans le BST fixe la finition de retour. Un même transformateur peut avoir les deux capacités. Pas de type AUTRE, découpe ou perçage. |
+| P-KG-TR | Ligne vendue en KG avec transport en EUR/t : KG ÷ 1 000 × EUR/t (5 000 kg à 100 EUR/t → 500 EUR). Prix de vente, coût d'achat, coût de transformation et transport restent toujours séparés. |
+
+## 24. Barres de 12 m et de 6 m — RÈGLE DÉFINITIVE (Phase 5.6, 02/10/2026)
+
+Source : tes messages du 02/10/2026 (décisions LG1 à LG9, validations
+V10-1 à V10-8). Analyse complète : `docs/ANALYSE_PHASE_5_6_v10.md`.
+
+**État : règle validée, pas encore codée.** Le code de la Phase 5.5 ne
+connaît qu'« 1 pièce de 12 m » : une barre de 12 m y est invisible pour
+une commande de 6 m, et la base accepte encore un lot de 6 m sur une
+ligne de 12 m. Ces écarts seront corrigés par le travail décrit plus bas.
+
+### Texte de la règle (validé mot pour mot)
+
+> Une barre de 12 m peut servir deux unités commerciales de 6 m à
+> finition identique et compatible.
+>
+> La compatibilité 12 m → 6 m ne constitue pas une transformation
+> industrielle et ne crée pas de nouveau lot ni de mouvement de
+> transformation.
+>
+> Une sortie partielle d'une barre de 12 m sous forme de 6 m laisse un
+> reliquat de 6 m rattaché au lot source.
+>
+> Le reliquat de 6 m est consommé avant l'ouverture d'une nouvelle barre
+> de 12 m lorsque cela est possible.
+>
+> Deux barres de 6 m ne peuvent jamais être considérées automatiquement
+> comme une barre de 12 m.
+>
+> Une pièce de 6 m issue d'une barre de 12 m ne peut plus être revendue
+> comme une pièce de 12 m.
+>
+> La valeur de la partie sortie et celle du reliquat doivent conserver
+> exactement la valeur initiale du lot, sous réserve de l'arrondi
+> monétaire minimal autorisé.
+
+### Décisions LG1 à LG9 et Q-COUPE
+
+| Repère | Décision |
+|---|---|
+| LG1 | 1 barre de 12 m = 2 barres de 6 m pour la disponibilité commerciale. Règle de compatibilité du stock, pas une transformation : aucun mouvement de transformation dans le registre. |
+| LG2 | À finition identique seulement : NOIR → NOIR, GALVA → GALVA, GPP → GPP. NOIR/LAC → GALVA reste une transformation de finition. |
+| LG3 | **Pour le moment**, une seule conversion est validée : 12 m → 2 × 6 m. Aucun moteur générique (12 → 4, 12 → 3, 6 → 3… ne sont pas permis). Toute autre conversion devra faire l'objet d'une décision métier séparée. |
+| LG4 | Vente partielle : stock 1 × 12 m, vente 1 × 6 m → 6 m sortis, 6 m restants. Le reliquat reste rattaché au lot source, devient disponible comme 6 m, n'est plus vendable comme 12 m. |
+| LG5 | Valorisation proportionnelle à la longueur : lot 1 × 12 m à 100 TND, vente 1 × 6 m → 50 TND sortis, 50 TND restants. Pas de second CMP indépendant qui perdrait le lien avec le lot source. |
+| LG6 | Sens inverse interdit : 2 × 6 m ne sont jamais considérées automatiquement comme 1 × 12 m disponible. Une commande de 12 m n'est servie que par une disponibilité réelle de 12 m. |
+| LG7 | Le contrôle d'affectation vérifie au minimum : article, finition, longueur, compatibilité de longueur, disponibilité. Interdit : lot 6 m → ligne 12 m. Autorisé : lot 12 m → ligne 6 m. |
+| LG8 | Remplace la dernière phrase de K2 (§22) : « Un lot 12 m peut servir une ligne 6 m à finition compatible identique selon l'équivalence 1 × 12 m = 2 × 6 m. Cette compatibilité n'est pas une transformation industrielle. » |
+| LG9 | Quinze tests obligatoires (liste ci-dessous). |
+| Q-COUPE | Oui : une ligne NOIR 6 m peut être servie par des barres NOIR de 12 m, sans opération de découpe en 5.6. |
+
+### Validations V10-1 à V10-8
+
+| Repère | Décision |
+|---|---|
+| V10-1 | Le reliquat de 6 m est consommé avant d'entamer une nouvelle barre. Ce n'est pas un FIFO général : la règle ne vise que les reliquats de barre nés de l'équivalence 12 m → 6 m. Elle est déterministe et auditable. |
+| V10-2 | Pour les articles valorisés ou quantifiés au KG ou à la TONNE, une pièce de 6 m issue d'une barre de 12 m représente la moitié de la longueur et donc, dans le modèle actuel, la moitié du poids de la barre (120 kg → 60 kg). Aucun nouveau poids fournisseur n'est créé ; la traçabilité vers le lot source est conservée. |
+| V10-3 | La valeur du reliquat se calcule par différence : valeur sortie + valeur restante = valeur initiale, à l'unité monétaire minimale près. La règle d'arrondi du §17 est respectée. |
+| V10-4 | Le stock s'affiche « 2 barres de 12 m + 1 pièce de 6 m ». Il ne s'affiche jamais « 5 × 6 m » **comme stock physique**, car cela ferait perdre l'information physique réelle. La représentation conserve au minimum : la longueur physique et l'origine, la quantité, le reliquat, le lot source, la valeur associée. L'équivalence en 6 m sert à la disponibilité commerciale ; l'information physique du lot n'est jamais supprimée. |
+| V10-5 | Un reliquat de 6 m NOIR peut partir en galvanisation ou en GPP : c'est une transformation, traitée en 5.8, à ne pas confondre avec la règle 12 m → 6 m. |
+| V10-6 | La modification du schéma aura sa propre migration corrective, clairement identifiable. Toutes les données existantes sont préservées ; rien n'est supprimé ni reconstruit arbitrairement. |
+| V10-7 | Ordre des travaux : documentation métier, tests, migration dédiée, code, tests complets, rapport, validation. |
+| V10-8 | Si un reliquat compatible de 6 m existe dans un autre lot que celui choisi : **avertissement + confirmation + motif obligatoire + audit**. Le système ne refuse pas, ne choisit jamais le lot et n'impose aucun FIFO. Le choix du lot reste manuel (D5). |
+
+### Modèle retenu (analyse v10 validée)
+
+- **Le lot acheté reste un lot de 12 m.** Sa donnée source (longueur,
+  nombre de barres, poids fournisseur, prix) n'est jamais modifiée. Le
+  système ne transforme jamais « 1 × 12 m » en « 2 × 6 m » dans le lot.
+- **Chaque sortie et chaque affectation porte la longueur des pièces
+  concernées** (12 m ou 6 m). C'est la seule donnée nouvelle à stocker.
+  Sa mise en œuvre est un **choix technique** décrit dans la v10 (§M,
+  §N), à réaliser par la migration dédiée : colonne « longueur de la
+  pièce » sur le mouvement, l'affectation et la ligne de bon de livraison
+  client (sur le mouvement, une valeur vide signifie « longueur du
+  lot ») ; vues de lecture ; triggers remplacés ou ajoutés. Aucune table
+  reconstruite, aucune donnée supprimée.
+- **Aucun mouvement de conversion, aucun lot enfant, aucun second CMP.**
+  Le reliquat de 6 m est simplement ce qui reste du même lot.
+- **La disponibilité en 6 m est un calcul**, jamais une donnée stockée :
+  - disponible en 6 m = pièces libres des lots de 6 m + pièces de 6 m
+    que les lots de 12 m peuvent encore fournir ;
+  - disponible en 12 m = barres entières libres, comptées **lot par
+    lot** : deux reliquats de deux lots ne font jamais une barre ;
+  - les deux chiffres répondent à deux questions différentes et ne
+    s'additionnent jamais.
+- **Le coût suit la longueur** : 6 m pris sur une barre de 12 m coûtent
+  la moitié de la barre ; le reliquat garde l'autre moitié, calculée par
+  différence.
+
+Exemple validé. Lot acheté : 3 barres de 12 m, 360 kg, 300 TND. Vente de
+1 × 6 m.
+
+| | Avant la vente | Après la vente |
+|---|---|---|
+| Donnée du lot | 12 m ; 3 barres ; 360 kg ; 300 TND | Identique |
+| Stock physique | 3 barres de 12 m ; 360 kg ; 300 TND | 2 barres de 12 m + 1 pièce de 6 m ; 300 kg ; 250 TND |
+| Disponible à la vente | En 12 m : 3. En 6 m : 6 | En 12 m : 2. En 6 m : 5 (1 reliquat + 4 par équivalence) |
+
+Contrôle : 50 (sortie) + 50 (reliquat) + 200 (2 barres) = 300 TND ;
+60 + 60 + 240 = 360 kg.
+
+### Trois reliquats à ne jamais confondre
+
+| | Reliquat de barre | Reliquat de conversion | Reliquat de commande |
+|---|---|---|---|
+| Origine | Vente directe de 6 m sur une barre de 12 m, à finition identique | Transformation : 25 × 12 m donnent 50 pièces pour 49 commandées (P-MULT) | Clôture d'une commande non entièrement livrée |
+| Nature | Pièce physique de 6 m, dans le lot source | Pièce du lot transformé, après réception | Quantité commandée non livrée ; ce n'est pas du stock |
+| Disponible à la vente | Immédiatement, comme 6 m | Après la réception du lot transformé (L-u, §25) | Sans objet |
+| Règle | LG4, V10-1 à V10-4 | P-MULT (§23), L-u (§25) | X6, CT19 (§23) |
+
+### Quinze tests obligatoires (LG9) — écrits avant le code lorsque cela est possible
+
+1. 1 × 12 m, commande 1 × 12 m : accepté.
+2. 1 × 12 m, commande 2 × 6 m : accepté.
+3. 1 × 12 m, commande 1 × 6 m : accepté, reliquat 1 × 6 m.
+4. Reliquat 1 × 6 m, commande 1 × 6 m : accepté.
+5. 1 × 12 m, commande 3 × 6 m : refusé.
+6. 2 × 6 m, commande 1 × 12 m : refusé.
+7. 1 × 6 m, commande 1 × 12 m : refusé.
+8. NOIR 12 m, ligne GALVA 6 m : refusé comme simple compatibilité.
+9. GALVA 12 m, ligne GALVA 6 m : accepté.
+10. GPP 12 m, ligne GPP 6 m : accepté.
+11. Vérification du coût 12 m / 6 m.
+12. Vérification du reliquat et de sa valeur.
+13. Reconstruction du stock après consommation partielle.
+14. Absence de double comptage.
+15. Traçabilité lot source → sortie → reliquat.
+
+## 25. Affaires — décisions du 02/10/2026 : Y6-L, Q-ANNUL, lectures L, propositions C
+
+Source : tes réponses du 02/10/2026, cas par cas. Registre complet :
+`docs/DECISIONS_PHASE_5_6_2026-10-02.md`. Contexte de chaque point (texte
+d'origine, constat dans le dépôt, impact) :
+`docs/REVUE_PHASE_5_6_L_C.md`.
+
+**Portée.** Seul ce qui est écrit dans les tableaux ci-dessous a été
+validé : c'est le texte qui t'a été présenté cas par cas. Certains détails
+des propositions de la v9 ne t'ont pas été présentés un par un et restent
+des **propositions d'analyse, non validées** : une commande qui reprend
+une partie seulement des lignes du devis ; destination et incoterm repris
+sur le devis ; une ligne de BST qui porte une quantité non réservée ; le
+taux GPP du jour de l'avenant pour une ligne ajoutée par avenant. Ils
+seront présentés avant le code.
+
+### Taux de change et bon de sortie transformation (BST)
+
+| Repère | Décision |
+|---|---|
+| Y6-L | La règle écrite est la référence : tous les avenants d'une commande confirmée utilisent le taux de change du devis validé et gelé. |
+| Q-ANNUL | Un BST préparé et non exécuté peut être annulé par le SUPERADMIN seul : motif et audit obligatoires, historique conservé, allocations et réservations libérées explicitement, statut annulé conservé. Un BST exécuté ne s'annule pas ainsi. |
+
+### Lectures L-a à L-v
+
+| Repère | Décision | Règle retenue |
+|---|---|---|
+| L-a | Oui | « Réservation commerciale » = réservation de devis, qui ne bloque pas le stock. « Affectation » inclut réaffectations et libérations. |
+| L-b | Oui, précisé | « Lot brut » = lot NOIR, c'est-à-dire l'état d'achat chez le fournisseur (NOIR ou LAC), avant toute transformation. |
+| L-c | Oui | Normal ou supplément : décidé dès la réservation du lot brut, puis gardé. |
+| L-d | Oui | Une affectation à cheval sur la quantité en vigueur est refusée ; elle se saisit en deux fois (normal, puis supplément avec motif). |
+| L-e | Oui | Ligne ajoutée par avenant : valeurs d'article du jour de l'avenant ; les lignes existantes gardent les leurs. |
+| L-f | Oui | Le seul SUPERADMIN ne peut être ni désactivé ni changé de rôle ; son compte est créé à l'installation. |
+| L-f bis | Reporté | Le cas du SUPERADMIN indisponible sera décidé plus tard (§27). |
+| L-g | Oui | Tout nouveau compte démarre sans aucun droit. |
+| L-h | Modifié | Le % GALVA de la fiche article est **proposé** sur la ligne ; l'utilisateur le garde ou le change ; un écart est signalé, jamais bloqué. Le % utilisé est enregistré sur la ligne, avec son auteur, et figé à la confirmation du devis. |
+| L-h bis | Décidé | Sur une ligne GALVA, le % est obligatoire et strictement supérieur à 0 : 0 % est interdit. |
+| L-i | Oui | Une réservation ne se déplace pas : libération avec motif, puis nouvelle réservation. |
+| L-j | Oui | Pas d'avenant sur un devis ; seulement sur une commande confirmée. |
+| L-k | Oui | Une barre inscrite dans un BST préparé est **engagée** : elle est déduite du disponible, même encore sur le parc. |
+| L-l | Oui, pour le moment | Seul le SUPERADMIN prépare un BST ; délégation possible plus tard. |
+| L-m | Abandonnée | Un BST n'est jamais refusé pour une question de capacité du transformateur. |
+| L-n | Modifié | Achat en excès libre. La réservation de barres avant transformation reste au plus juste (49 × 6 m → 25 barres). |
+| L-o | Décidé | Tout utilisateur peut demander la création d'un article ; seul le SUPERADMIN le crée, si nécessaire. |
+| L-p | Oui, précisé | Seul le SUPERADMIN modifie une désignation, qu'il a confirmée et validée ; motif facultatif. Les autres champs de l'article suivent P-ART (§23). |
+| L-q | Oui | Le devis affiche une marge prévisionnelle ; la marge réelle vient en 5.10. |
+| L-r | Oui | En préparant un BST, on désigne soi-même la réservation exécutée. |
+| L-s | Modifié | Exécution partielle d'une réservation permise ; le reste demeure réservé. |
+| L-t | Modifié | Aucune modification exceptionnelle du taux n'est développée en 5.6. Le taux du devis validé reste la seule référence. Rappel de tes décisions du 02/10 si la fonction devait exister un jour : elle serait autorisée, historisée, auditée, non rétroactive, et ne changerait ni le taux du devis, ni les anciennes lignes, ni les avenants enregistrés. |
+| L-u | Oui, précisé | La pièce en trop d'une transformation est affectable à une commande confirmée dès que le BST est préparé ; vendable seulement après la réception ; réservable à titre informatif au stade du devis. |
+| L-v | Oui | Un devis en cours n'est jamais recalculé tout seul quand un article change : le système signale, l'utilisateur décide. |
+
+**Ce qui bloque le disponible d'un lot chez GMC** (L-a, L-k, Y1 bis) :
+
+`disponible = physique − affecté non livré − réservé pour transformation − engagé dans un BST préparé`
+
+Quatre notions à ne jamais confondre : la **réservation de devis**
+(informative, jamais déduite), la **réservation de lot brut** pour
+transformation (déduite), l'**affectation** (déduite), l'**engagement
+dans un BST préparé** (déduit). Aucune ne crée de mouvement physique.
+
+### Propositions C1 à C14
+
+| Repère | Décision | Règle retenue |
+|---|---|---|
+| C1 | Oui | Commande créée seulement depuis un devis CONFIRMÉ ; quantités modifiables en brouillon, figées à la confirmation. |
+| C1 bis | A | Quantité modifiée en brouillon : recalcul avec les valeurs figées du devis. |
+| C1 ter | Décidé | Commande annulée : toutes les demandes en amont sont annulées, et on revient à la première phase : un **nouveau devis** est nécessaire. La marchandise déjà réceptionnée reste en stock. La marchandise déjà transformée chez le transformateur reste en stock. Les bons de commande restent **si la marchandise est réceptionnée** ; ceux dont rien n'est réceptionné sont annulés avec les autres demandes en amont. |
+| C2 | Oui | Unités de vente : TONNE, KG, PIÈCE, ML, M² ; liste extensible par le SUPERADMIN ; prix dans l'unité de vente. |
+| C3 | Modifié | Après la confirmation de la commande, le transport estimé n'est plus recalculé, même en cas d'avenant ; les chiffres définitifs viennent aux étapes suivantes. Pas de transport estimé sur un supplément. |
+| C4 | Oui | Commande annulée avec la même liste de causes que le devis ; « Autre » exige un commentaire ; un brouillon est annulé par son auteur ; un devis confirmé ne s'annule pas. |
+| C4 bis | Reporté | La liste des 8 causes d'annulation sera fixée plus tard (§27). |
+| C5 | Modifié | Un devis dont la validité est dépassée n'est pas annulé ; ses réservations sont libérées. Il peut être **actualisé** plus tard : il redevient modifiable (prix, taux, quantités), l'ancien état restant dans l'historique. |
+| C5 bis | Décidé | Heure de référence : heure de Tunisie. |
+| C6 | Oui | Réservation de devis limitée au disponible ; annulée, jamais supprimée. |
+| C7 | Oui | Supplément possible tant que la commande est confirmée. |
+| C8 | Oui | Réaffectation par le SUPERADMIN, sur du non livré, même lot, même emplacement. |
+| C8 bis | A | Le type d'un supplément réaffecté se décide à la destination. |
+| C9 | Oui | Affectation faite par erreur : libérée par le SUPERADMIN avec motif. |
+| C10 | Oui | « Entièrement livrée » = livré ≥ quantité en vigueur et plus rien en attente ; clôture manuelle. (« Plus rien en attente » = aucune affectation active non livrée, v9 §17.) |
+| C10 bis | A | Pour une ligne vendue au poids, la comparaison se fait en pièces. |
+| C11 | Oui | Reste à livrer = quantité en vigueur − livré. À approvisionner = quantité en vigueur − (affecté + réservé pour transformation + livré). **Précision de calcul (choix technique de la v9 §6.8, signalé, pas une règle nouvelle)** : « livré » = livré en quantité normale ; « affecté » = affecté en quantité normale, actif et pas encore livré. But : ne pas compter deux fois une quantité affectée puis livrée, et ne pas mêler les suppléments au calcul. |
+| C12 | Oui | Fiche client inchangée en 5.6 ; adresse et identifiant fiscal notés pour la 5.9. |
+| C13 | Déjà validé | LAC = NOIR. |
+| C14 | Modifié | La date de confirmation est enregistrée automatiquement quand la commande passe à l'état CONFIRMÉE, par le SUPERADMIN ou le commercial. |
+
+## 26. Règles remplacées ou modifiées — registre
+
+Ce registre rassemble les remplacements. Quand l'ancienne règle est
+écrite dans ce document (§19 à §23), elle y reste, avec une note à sa
+place. Le registre complet des remplacements antérieurs au 02/10 (H1 à
+H40) est dans `docs/ANALYSE_PHASE_5_6_v9.md` §26.
+
+### Remplacements décidés le 02/10/2026
+
+| Règle antérieure | Remplacée par | Conséquence |
+|---|---|---|
+| K2 (§22) : « un lot brut de 12 m n'est jamais considéré comme directement disponible en 6 m » | LG8 (§24) | Vrai seulement quand la finition change. |
+| v9, Q-COUPE : proposition « non » | Q-COUPE (§24) | Affectation directe d'un lot NOIR 12 m à une ligne NOIR 6 m acceptée. |
+| CT3, pour le % GALVA : valeur validée par le SUPERADMIN seul | L-h, L-h bis (§25) | Le % est saisi sur la ligne ; l'historique de validation du % devient inutile. La validation de la **masse** reste. |
+| Y1 bis (b) : « le système reprend exactement ce qui a été réservé » | L-s (§25) | Un BST peut envoyer moins que la quantité réservée ; finition et longueur attendues inchangées. |
+| CT5 : modification exceptionnelle du taux par le SUPERADMIN | L-t (§25) | Fonction non développée en 5.6. |
+| v9, lecture L-m : BST refusé sans capacité | L-m abandonnée (§25) | Aucun contrôle de capacité à la préparation d'un BST. |
+| v9, lecture L-n : une seule barre en trop | L-n (§25) | Limite valable pour la réservation seulement ; achat libre. |
+| v9, C3 : transport recalculé sur la quantité en vigueur | C3 (§25) | Aucun recalcul après confirmation. |
+| v9, C5 : prolongation avant expiration seulement ; devis expiré figé | C5 (§25) | Actualisation possible après l'échéance. |
+| v9, C14 : date de confirmation par le client | C14 (§25) | Date automatique au passage à CONFIRMÉE. |
+
+### Rappel de remplacements antérieurs, visibles dans les §20 à §22
+
+| Règle antérieure | Remplacée par | Conséquence |
+|---|---|---|
+| N6 (§21) : supplément au-delà de la quantité **originale** | O1 (§23) | Supplément au-delà de la quantité **en vigueur**. |
+| K10 (§22), partie « nouvelle négociation → nouveau prix » | Y5 (§23) | Plus de renégociation après confirmation. |
+| N4, K19 : GPP « × 1,02 » comme constante | CT4 (§23) | Réglage global historisé ; même valeur. |
+
+## 27. Phase 5.6 — points encore ouverts au 02/10/2026
+
+La Phase 5.6 n'est **pas validée dans son ensemble**. Rien n'est codé :
+aucune migration, aucun service, aucun test pour la 5.6.
+
+| N° | Point | État |
+|---|---|---|
+| 1 | C4 bis : liste des 8 causes d'annulation | À fournir par Mohamed. Elle n'existe dans aucun document du dépôt ; elle ne doit pas être inventée. |
+| 2 | L-f bis : SUPERADMIN indisponible | À décider plus tard. |
+| 3 | Q-BCT (lien entre BST et bon de commande de transformation) et Q-TRF (capacités d'un transformateur) | En analyse. Contraintes fixées : aucun mouvement physique sans commande de transformation ; le SUPERADMIN seul crée les transformateurs ; un transformateur peut avoir plusieurs capacités ; aucune migration maintenant. À traiter avec Q-TRF : le sort du type « débit », que le §8 et la base connaissent alors que P-RET ne retient que deux transformations. |
+| 4 | BST préparé et non exécuté d'une commande annulée : annulé d'office ou conservé ? | À relier à Q-ANNUL. |
+| 5 | Bon de commande partiellement réceptionné quand la commande client est annulée : sort de la partie non reçue | À préciser en 5.7 (achats). |
+| 6 | Format du code article | Ouvert depuis la 5.5 ; n'empêche pas de coder. |
+| 7 | Transport estimé d'une ligne **ajoutée par avenant** (nouvel article) : saisi et calculé pour cette nouvelle ligne (K21, §22), ou aucun transport estimé après la confirmation (C3, §25) ? | Relevé à la relecture du 02/10/2026 ; à trancher par Mohamed. |
+| 8 | Validation d'ensemble de la Phase 5.6 | En attente. |
 
 ## Identifiants et numérotation
 

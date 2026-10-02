@@ -83,8 +83,12 @@ jargon non expliqué.
   conversions exactes kg↔t, mm/cm/m, prix dans l'unité de valorisation,
   volumes dm³/m³, montants) ; `core/masses_validees.py` — masses linéiques
   validées (FP) et poids des tôles planes (volume dm³ × 8 kg/dm³).
-- `db/gmc.db` — la base réelle (ignorée par git si un dépôt est initialisé un
-  jour ; c'est un fichier binaire régénérable par `migrate.py`).
+- `db/gmc.db` — la base réelle (ignorée par git, cf. `.gitignore` ; c'est
+  un fichier binaire régénérable par `migrate.py`).
+- **Base commune (depuis le 02/10/2026)** — dépôt GitHub privé
+  `medfakh-png/gmc-erp` (branche `main`) et copie de travail sur le PC de
+  Mohamed, `C:\Users\medfa\GMC-ERP`. Aucun commit ni push sans demande
+  explicite de Mohamed.
 - `tests/` — tests pytest (`python3 -m pytest tests/ -v` ou
   `/root/.local/bin/pytest tests/ -v` selon l'environnement).
 - `docs/DATABASE.md` — dictionnaire de données réel + design du moteur CMP.
@@ -97,6 +101,12 @@ jargon non expliqué.
 - `docs/STOCK_RULES.md` (Phase 4.1) — mécanique du registre de stock, règle
   définitive des chutes (valorisation, traçabilité, exclusion de la marge
   individuelle, bilan consolidé annuel), checklist d'intégrité de la base.
+- Phase 5.6 (analyse, aucun code) — `docs/ANALYSE_PHASE_5_6_v9.md`
+  (analyse consolidée des affaires), `docs/ANALYSE_PHASE_5_6_v10.md`
+  (barres 12 m / 6 m, validée), `docs/DECISIONS_PHASE_5_6_2026-10-02.md`
+  (registre des décisions du 02/10/2026), `docs/REVUE_PHASE_5_6_L_C.md`
+  (contexte des 36 points L et C, document historique). Les règles
+  validées qui en sortent sont dans `docs/BUSINESS_RULES.md` §19 à §27.
 - `PROJECT_STATUS.md` — où en est le projet, phase par phase.
 - `CURRENT_SESSION.md` — ce qui s'est passé à la toute dernière session de
   travail (à relire en premier en reprenant le travail).
@@ -122,6 +132,21 @@ jargon non expliqué.
   emplacement physique réel du stock GMC ; un retour de transformation
   s'enregistre toujours par paire (entrée du lot résultat + sortie du lot
   d'origine de chez le transformateur) — jamais de stock fantôme.
+- **Barres de 12 m et de 6 m (règle définitive, validée le 02/10/2026,
+  PAS ENCORE CODÉE)** : 1 barre de 12 m = 2 barres de 6 m à finition
+  identique, sans transformation, sans nouveau lot, sans second CMP ;
+  sens inverse interdit (2 × 6 m ne valent jamais automatiquement
+  1 × 12 m) ; aucune autre conversion validée pour le moment ; le lot
+  reste un lot de 12 m, le reliquat de 6 m reste rattaché au lot source
+  et se consomme avant d'entamer une nouvelle barre ; le coût suit la
+  longueur ; choix du lot toujours manuel, jamais de FIFO général (si un
+  reliquat existe dans un autre lot : avertissement + confirmation +
+  motif + audit, jamais de refus ni de choix automatique). Le code de la
+  Phase 5.5 n'applique pas encore cette règle. Ordre des travaux
+  validé : documentation → tests → migration dédiée (colonnes ajoutées,
+  aucune table reconstruite) → code → tests complets → rapport, chaque
+  étape sur accord explicite
+  (`docs/BUSINESS_RULES.md` §24, `docs/ANALYSE_PHASE_5_6_v10.md`).
 - **Inventaire initial de démarrage (Phase 5.5)** : origine de stock
   spécifique, jamais un achat, à l'instant exact de mise en service,
   unique ; le 31/12/2025 n'est PAS l'ouverture automatique de 2026.

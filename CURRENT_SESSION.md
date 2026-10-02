@@ -1,4 +1,118 @@
-# Dernière session de travail — Phase 5.1 à 5.4, puis Phase 5.5 (analyse validée, code terminé, corrections/clarifications intégrées)
+# Dernière session de travail — Phase 5.6 (analyse) : base commune, analyse v10 des barres 12 m / 6 m, décisions L et C (02/10/2026)
+
+## À LIRE EN PREMIER — session du 02/10/2026
+
+Tout ce qui suit cette section est l'historique des sessions précédentes
+(Phases 5.1 à 5.5, puis analyse 5.6 jusqu'à la version 4), conservé tel
+quel.
+
+### Ce qui a été fait le 02/10/2026
+
+1. **Base commune créée.** Dépôt GitHub privé `medfakh-png/gmc-erp` et
+   copie de travail sur le PC de Mohamed, `C:\Users\medfa\GMC-ERP`. Deux
+   enregistrements initiaux : `576a425` (sauvegarde du projet) et
+   `9671f70` (`db/gmc.db` retirée du suivi, conformément à `CLAUDE.md`).
+   Une archive `gmc-erp_sauvegarde_2026-10-02.zip` est gardée dans le
+   dossier du PC, hors dépôt.
+2. **Audit initial en lecture seule** du dépôt : 20 migrations, 47 tables,
+   4 vues, 94 triggers, 293 tests réussis, base sans donnée métier.
+   Écarts relevés : fichiers d'état arrêtés à l'analyse v4 ; règles
+   métier arrêtées au §22 ; documents des Phases 1 à 3 absents du dépôt ;
+   liste des 8 causes d'annulation absente du dépôt.
+3. **Audit ciblé des barres 12 m / 6 m.** Cinq scénarios réels exécutés
+   sur une copie jetable (analyse v10 §B) : le code ne connaît
+   qu'« 1 pièce de 12 m ». Un seul cas sur cinq donne le bon résultat
+   pour la bonne raison ; 2 × 6 m sur une barre de 12 m est refusé ;
+   1 × 6 m fait partir la barre entière ; la base accepte une pièce de
+   6 m sur une ligne de 12 m ; 3 × 6 m est refusé, mais pour une
+   mauvaise raison. Aucun test ne couvre la règle.
+4. **Analyse v10** (`docs/ANALYSE_PHASE_5_6_v10.md`, version 10.4),
+   **validée** : décisions LG1 à LG9, Q-COUPE, V10-1 à V10-8. Pour V10-8,
+   Mohamed a refusé le blocage automatique que je proposais et retenu :
+   avertissement + confirmation + motif obligatoire + audit.
+5. **Revue des 36 points L et C** (`docs/REVUE_PHASE_5_6_L_C.md`), puis
+   **décision de chacun par Mohamed**, cas par cas
+   (`docs/DECISIONS_PHASE_5_6_2026-10-02.md`).
+6. **Documentation mise à jour** sur accord explicite de Mohamed
+   (« mettre à jour et enregistrer notre travail sur la base locale et
+   git ») : `docs/BUSINESS_RULES.md` §23 à §27 et notes de mise à jour
+   dans les §19 à §22 ; `PROJECT_STATUS.md` ; ce fichier ;
+   `CHANGELOG.md` ; `CLAUDE.md`. Les trois documents d'analyse du jour
+   sont rangés dans `docs/`.
+7. **Relecture indépendante** de cette mise à jour contre ses sources
+   (analyses v9 et v10, registre des décisions, messages de Mohamed) :
+   2 écarts de sens et une dizaine d'écarts de formulation relevés, tous
+   corrigés avant l'enregistrement (liste P-ART complète ; précision de
+   calcul de C11 ; « pour le moment », « automatiquement », « comme
+   stock physique » rétablis ; notes ajoutées aux anciennes règles).
+
+### Ce qui n'a PAS été fait (volontairement)
+
+- Aucun code, aucune migration, aucun test nouveau, aucune modification
+  de la base. Le code est exactement celui de la Phase 5.5 validée.
+- Rien n'est codé pour V10-8.
+- La Phase 5.6 n'est pas validée dans son ensemble.
+
+### Décisions métier du jour
+
+Toutes viennent de Mohamed. Elles sont dans `docs/BUSINESS_RULES.md` :
+§24 (12 m / 6 m), §25 (Y6-L, Q-ANNUL, lectures L, propositions C), §26
+(règles remplacées, dont K2). Aucune n'a été décidée par Claude.
+
+Points où une proposition de l'analyse a été **modifiée** par Mohamed :
+V10-8 (pas de refus automatique) ; migration (colonnes ajoutées, sans
+reconstruction de table) ; L-h (% GALVA saisi sur chaque ligne ; parmi
+les solutions présentées, Mohamed a retenu celle où la fiche article
+propose le %) ; L-m (abandonnée) ; L-n (achat en excès
+libre) ; L-s (exécution partielle d'une réservation permise) ; L-t (rien
+à développer) ; C3 (aucun recalcul du transport après confirmation) ; C5
+(devis actualisable après l'échéance) ; C14 (date de confirmation
+automatique).
+
+### Travail avec ChatGPT
+
+Mohamed fait relire les analyses par ChatGPT et transmet les messages par
+copier-coller. ChatGPT ne voit ni le PC ni cette conversation : il ne lit
+que les fichiers que Mohamed lui envoie. La référence commune est le
+dépôt GitHub.
+
+### Incident signalé
+
+Pendant l'audit en lecture seule, une commande `git diff` lancée sur le
+dossier du PC a réécrit le fichier technique `.git/index` (cache interne
+de Git). Aucun fichier du projet n'a été modifié. Signalé à Mohamed, qui
+l'a accepté. Depuis, sur le PC, seules des lectures Git sans verrou sont
+utilisées pendant les phases d'analyse.
+
+### Points ouverts
+
+Les 8 points de `docs/BUSINESS_RULES.md` §27 : liste des 8 causes
+d'annulation (à fournir par Mohamed, jamais à inventer) ; SUPERADMIN
+indisponible ; Q-BCT et Q-TRF (dont le sort du « débit ») ; BST préparé
+d'une commande annulée ; bon de commande partiellement réceptionné à
+l'annulation (5.7) ; format du code article ; transport estimé d'une
+ligne ajoutée par avenant (K21 / C3, relevé à la relecture) ;
+validation d'ensemble de la 5.6.
+
+À présenter aussi avant le code : quatre détails des propositions de la
+v9 qui n'ont pas été soumis un par un (`docs/BUSINESS_RULES.md` §25,
+paragraphe « Portée »).
+
+### Prochaine étape exacte
+
+Attendre l'accord explicite de Mohamed pour l'une des deux suites :
+
+- ses réponses aux points ouverts, puis la validation d'ensemble de la
+  Phase 5.6 ;
+- ou l'étape 2 de l'ordre validé (V10-7) : écrire les tests de la règle
+  12 m / 6 m.
+
+Ne rien coder, ne créer aucune migration et n'écrire aucun test avant cet
+accord. Ne pas commencer la 5.7.
+
+---
+
+# Historique — Phase 5.1 à 5.4, puis Phase 5.5 (analyse validée, code terminé, corrections/clarifications intégrées)
 
 ## Règle de méthode en vigueur depuis la Phase 5.5 (imposée par l'utilisateur)
 
@@ -611,13 +725,27 @@ questions d'application) :
 - 10 confirmations C partiellement sans réponse ;
 - 15 choix techniques CT1 à CT15, **aucun validé**.
 
+*Mise à jour (02/10/2026) : tous ces points ont été tranchés depuis.
+Voir la section « À LIRE EN PREMIER » en tête de ce fichier.*
+
+### Analyses v5 à v9 (du 30/09 au 02/10/2026)
+
+Les versions 5 à 9 de l'analyse ont intégré, au fur et à mesure, les
+décisions O1 à O9, X1 à X9, Y1 à Y6 (dont Y1 bis), CT1 à CT21 (tous
+validés le 01/10) et P-MULT, P-BST, P-ART, P-RET, P-KG-TR (02/10). La v5
+n'existe que comme fichier remis en conversation ; les v6 à v9 sont dans
+`docs/`. La v9 propose 210 cas de test et une migration 0021, non
+créée. Ces décisions sont reportées dans `docs/BUSINESS_RULES.md` §23.
+
 ## Important — réalité de l'environnement
 
 Cette session de travail s'exécute dans un environnement cloud isolé et
 temporaire (pas directement sur ton PC Windows). La base, le code et les
 tests décrits ici ont réellement été exécutés et vérifiés dans cet
-environnement. Pour continuer à travailler dessus localement, il faudra
-récupérer ces fichiers — transmis en fin de session.
+environnement. Depuis le 02/10/2026, le projet est enregistré dans le
+dépôt GitHub privé `medfakh-png/gmc-erp` et dans le dossier
+`C:\Users\medfa\GMC-ERP` du PC : il n'y a plus rien à récupérer à la
+main en fin de session.
 
 ## Aucune décision métier silencieuse
 
@@ -683,7 +811,10 @@ ouverture remplacée par l'inventaire initial ; valorisation interne (unité
 du CMP §16) ; arrondi (§17) ; tôles (volume × 8 kg/dm³) ; ventes en tonnes
 = ventes au poids.
 
-## Prochaine étape exacte
+## Prochaine étape exacte (situation au 30/09/2026 — remplacée)
+
+*Remplacée par la section « À LIRE EN PREMIER » en tête de ce fichier.
+Texte d'origine conservé :*
 
 Attendre la **validation finale** de l'analyse Phase 5.6, version 4
 (`docs/ANALYSE_PHASE_5_6.md`) : D1 à D6, N1 à N15 et K1 à K22 intégrés
