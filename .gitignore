@@ -1,0 +1,19 @@
+# Fichiers générés par Python et pytest
+__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Fichiers temporaires de SQLite
+*.db-wal
+*.db-shm
+*.db-journal
+
+# Archives de sauvegarde locales
+*.zip
+
+# Fichiers du système
+Thumbs.db
+desktop.ini
+.DS_Store
