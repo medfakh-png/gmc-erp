@@ -68,7 +68,12 @@ dans l'analyse v10 et n'est pas commencée.
 
 1. Documentation métier — **fait le 02/10/2026**.
 2. Tests de la règle 12 m / 6 m, écrits avant le code lorsque cela est
-   possible.
+   possible — **écrits le 02/10/2026, en attente de la validation de
+   Mohamed** : `tests/test_phase5_6_longueurs_12m_6m.py`, 29 cas (les
+   quinze tests obligatoires T01 à T15 et les compléments T16 à T25 ;
+   aucun test pour V10-8). 2 cas réussissent déjà ; 27 sont marqués
+   « en attente » : 7 attendent la migration, 20 attendent aussi le code.
+   Suite complète : 295 réussis, 27 en attente.
 3. Migration corrective dédiée, additive pour les données (colonnes
    ajoutées, aucune table reconstruite, aucune donnée supprimée ;
    vues et triggers remplacés ou ajoutés).
@@ -447,16 +452,18 @@ Phase 5.5 — points restant ouverts :
 
 ## Prochaine étape proposée
 
-**Au 02/10/2026.** La documentation métier est à jour. Deux suites
-possibles, au choix de Mohamed, sur accord explicite :
+**Au 03/10/2026.** La documentation métier est à jour et l'étape 2
+(tests de la règle 12 m / 6 m) est écrite. Suite proposée, sur accord
+explicite de Mohamed à chaque étape :
 
-- répondre aux points ouverts de la 5.6 (`docs/BUSINESS_RULES.md` §27),
-  puis donner la validation d'ensemble de la Phase 5.6 ;
-- ou lancer l'étape 2 de l'ordre validé : écrire les tests de la règle
-  12 m / 6 m (sans migration ni code tant que ce n'est pas demandé).
+1. valider l'étape 2 (les tests) ;
+2. étape 3 : la migration corrective dédiée ;
+3. étape 4 : le code, puis les tests complets et le rapport ;
+4. en parallèle, à son rythme : ses réponses aux points ouverts de la
+   5.6 (`docs/BUSINESS_RULES.md` §27), nécessaires à la validation
+   d'ensemble de la Phase 5.6 mais pas à la règle 12 m / 6 m.
 
-Aucun code, aucune migration, aucun test nouveau sans cet accord. Ne pas
-commencer la 5.7.
+Aucune migration ni aucun code sans cet accord. Ne pas commencer la 5.7.
 
 *Historique (situation au 30/09/2026, conservée telle quelle) :*
 

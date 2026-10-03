@@ -48,8 +48,9 @@ quel.
 
 ### Ce qui n'a PAS été fait (volontairement)
 
-- Aucun code, aucune migration, aucun test nouveau, aucune modification
-  de la base. Le code est exactement celui de la Phase 5.5 validée.
+- Aucun code métier, aucune migration, aucune modification de la base.
+  Le code est exactement celui de la Phase 5.5 validée. Seul ajout : le
+  fichier de tests de l'étape 2 (voir ci-dessous).
 - Rien n'est codé pour V10-8.
 - La Phase 5.6 n'est pas validée dans son ensemble.
 
@@ -98,17 +99,59 @@ validation d'ensemble de la 5.6.
 v9 qui n'ont pas été soumis un par un (`docs/BUSINESS_RULES.md` §25,
 paragraphe « Portée »).
 
+### Étape 2 — tests de la règle 12 m / 6 m (écrits le 02/10/2026, sur accord)
+
+Mohamed : « Lance Étape 2 et on termine pour cette semaine ».
+
+- Fichier : `tests/test_phase5_6_longueurs_12m_6m.py`. 29 cas : T01 à T15
+  (les quinze tests obligatoires, LG9) et T16 à T25 (compléments de la
+  v10). **Aucun test pour V10-8** (T26), conformément à la consigne.
+- Résultat réel : `python3 -m pytest tests/` → 295 réussis, 27 en
+  attente. Les 293 tests existants sont inchangés. T01 et T22 réussissent
+  déjà (ce qui marche aujourd'hui doit continuer à marcher).
+- Les 27 cas en attente échouent pour trois raisons, toutes liées à la
+  règle non codée : la colonne « longueur de la pièce » n'existe pas ; une
+  barre de 12 m est invisible pour une demande de 6 m ; la base accepte un
+  lot de 6 m sur une ligne de 12 m.
+- Deux marqueurs stricts : `ATTEND_MIGRATION` (7 cas : T06, T07, T16 × 3,
+  T20, T21 — ils doivent réussir dès l'étape 3) et `ATTEND_CODE` (20 cas).
+  Quand un test se met à réussir, son marqueur doit être retiré.
+- Relecture indépendante des tests : aucun chiffre attendu faux, aucune
+  contradiction avec la règle. Pour vérifier que les tests sont
+  réalisables, la relecture a monté un **prototype jetable hors du
+  dépôt** : les 29 cas y réussissent. Aucun code de ce prototype n'est
+  dans le projet. Deux attentes trop précises ont été retirées (sens de
+  `physique_stock_gmc` ; refus d'un poids libre) et trois contrôles
+  ajoutés (refus au niveau du registre ; somme des disponibilités 6 m).
+- **Choix techniques provisoires**, listés en tête du fichier de tests et
+  à confirmer au codage : nom de la colonne et du paramètre
+  (`longueur_piece_m`) ; fonction de lecture physique d'un lot
+  (`stock_service.etat_physique_lot`) ; autres hypothèses a à g.
+- **À traiter à l'étape 3 ou 4 (signalé par la relecture)** : le test
+  existant `test_migration_0019_n_invente_aucune_unite_d_article` fait
+  tourner le moteur sur un schéma arrêté à la migration 0020. Le moteur
+  devra tolérer l'absence de la nouvelle colonne, sinon ce test devrait
+  être adapté — ce qui toucherait à l'engagement « 293 tests sans changer
+  une assertion ». À présenter à Mohamed avant de coder.
+- Non fixé par les tests, à décider au codage : la façon d'obtenir le
+  poids d'une pièce de 6 m (calculé, ou saisi puis contrôlé) et le sort
+  de la « dernière pièce » d'un lot.
+
+**Enregistrement** : fichier de tests et mises à jour d'état enregistrés
+dans Git le 03/10/2026, à la demande de Mohamed (« enregistre le
+travail »). L'étape 2 reste **en attente de sa validation**. Le dossier
+du PC (`C:\Users\medfa\GMC-ERP`) sera mis à niveau quand l'ordinateur
+sera relié à la conversation.
+
 ### Prochaine étape exacte
 
-Attendre l'accord explicite de Mohamed pour l'une des deux suites :
+1. Obtenir la validation de l'étape 2 par Mohamed.
+2. Sur son accord : étape 3, la migration corrective dédiée.
+3. Sur son accord : étape 4, le code ; puis tests complets et rapport.
 
-- ses réponses aux points ouverts, puis la validation d'ensemble de la
-  Phase 5.6 ;
-- ou l'étape 2 de l'ordre validé (V10-7) : écrire les tests de la règle
-  12 m / 6 m.
-
-Ne rien coder, ne créer aucune migration et n'écrire aucun test avant cet
-accord. Ne pas commencer la 5.7.
+Les points ouverts de la 5.6 (`docs/BUSINESS_RULES.md` §27) n'empêchent
+pas ces étapes ; ils sont nécessaires à la validation d'ensemble de la
+5.6. Ne pas commencer la 5.7.
 
 ---
 

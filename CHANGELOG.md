@@ -3,6 +3,33 @@
 Toutes les dates sont celles des sessions de travail, pas nécessairement
 celles de validation par l'utilisateur.
 
+## Phase 5.6 — Étape 2 : tests de la règle 12 m / 6 m, écrits avant le code (02/10/2026)
+
+Tests seulement : aucun code métier, aucune migration, base inchangée.
+
+### Ajouté
+
+- `tests/test_phase5_6_longueurs_12m_6m.py` : 29 cas — les quinze tests
+  obligatoires (T01 à T15) et les compléments T16 à T25 de l'analyse
+  v10. Aucun test pour V10-8.
+- Deux marqueurs stricts : `ATTEND_MIGRATION` (7 cas) et `ATTEND_CODE`
+  (20 cas). T01 et T22 réussissent déjà.
+
+### Vérifié
+
+- `python3 -m pytest tests/` : 295 réussis, 27 en attente ; les 293 tests
+  existants sont inchangés.
+- Relecture indépendante : chiffres attendus recalculés, aucun faux ; les
+  29 cas réussissent sur un prototype jetable construit hors du dépôt.
+
+### Signalé
+
+- Noms techniques provisoires posés en tête du fichier de tests, à
+  confirmer au codage.
+- Le test existant `test_migration_0019_n_invente_aucune_unite_d_article`
+  devra être pris en compte à l'étape 3 ou 4 (moteur exécuté sur un
+  schéma arrêté à la migration 0020).
+
 ## Phase 5.6 — Analyse v10 (barres 12 m / 6 m), décisions L et C, base commune GitHub (02/10/2026)
 
 Documentation seulement : aucun code, aucune migration, aucun test
